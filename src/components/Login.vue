@@ -9,7 +9,13 @@
       </div>
       <div style="margin-bottom: 50px" class="mb3 col-8 d-flex flex-column">
         <label class="form_label text_left h5" for="login_enter">Логин</label>
-        <input class="form-control" type="text" name="login" id="login_enter" />
+        <input
+          class="form-control"
+          type="text"
+          name="login"
+          id="login_enter"
+          v-model="login"
+        />
       </div>
       <div class="mb3 col-8 d-flex flex-column">
         <label class="form_label text_left h5" for="password_enter"
@@ -20,10 +26,15 @@
           type="password"
           name="password"
           id="password_enter"
+          v-model="password"
         />
       </div>
       <div style="margin-top: 50px" class="col-8">
-        <button class="btn btn-lg btn-primary me-3" type="submit">
+        <button
+          class="btn btn-lg btn-primary me-3"
+          type="submit"
+          @click="fetchLogin"
+        >
           Отправить
         </button>
         <button class="btn btn-lg btn-danger">Отмена</button>
@@ -43,9 +54,18 @@ export default {
     };
   },
   methods: {
-    fetchLogin() {},
+    async fetchLogin() {
+      const body = {
+        login: this.login,
+        password: this.password,
+      };
+     
+      await this.$store.dispatch("fetchLogin", body);
+      this.login = "";
+      this.password = "";
+    },
   },
-}
+};
 </script>
 
 <style>

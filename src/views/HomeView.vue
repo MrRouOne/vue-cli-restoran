@@ -1,20 +1,36 @@
 <template>
   <div class="container">
-    
-    <header class="d-flex flex-row justify-content-between align-items-center border-bottom">
+    <header
+      class="
+        d-flex
+        flex-row
+        justify-content-between
+        align-items-center
+        border-bottom
+      "
+    >
       <article>
-      <a href="/" class="text-decoration-none"><h1>Toitotoro</h1></a>
+        <a href="/" class="text-decoration-none"><h1>Toitotoro</h1></a>
       </article>
       <nav>
         <!-- <a href="#">Сотрудники</a>
         <a href="#">Смены</a>
         <a href="#">Заказы</a> -->
-        <a href="#" class="btn btn-primary btn-lg" @click.prevent="openModal">Вход</a>
+        <a
+          href="#"
+          class="btn btn-primary btn-lg"
+          @click.prevent="openOrderList"
+          >Список заказов</a
+        >
+        <a href="#" class="btn btn-primary btn-lg" @click.prevent="openModal"
+          >Вход</a
+        >
         <!-- <a href="#" class="cancel_button">Выход</a> -->
       </nav>
     </header>
     <main>
       <Modal v-if="modalOpen"></Modal>
+      <OrderList v-if="orderListOpen" />
       <!-- <section class="employees">
         <article class="card">
           <div>
@@ -61,19 +77,25 @@
 
 <script>
 import Modal from "../components/Login";
+import OrderList from "../components/Cook";
 export default {
   name: "HomeComponent",
   components: {
     Modal,
+    OrderList,
   },
   data() {
     return {
       modalOpen: false,
+      orderListOpen: false,
     };
   },
   methods: {
     openModal() {
       this.modalOpen = !this.modalOpen;
+    },
+    openOrderList() {
+      this.orderListOpen = !this.orderListOpen;
     },
   },
 };
