@@ -5,9 +5,8 @@
       {{ cook.shift_workers }} - {{ cook.create_at }} -
       <button @click="changeStatus(cook.id, index)">Редактировать</button>
     </li>
-     <div>GG</div>
+    <div>GG</div>
   </ul>
- 
 </template>
 
 <script>
@@ -22,11 +21,13 @@ export default {
       },
     };
   },
+ 
   async mounted() {
-    const res = await this.$store.dispatch(
-      "getCooks",
-      this.$store.getter.getToken
+    
+    const res = await this.$store.dispatch("getCooks", 
+      this.$store.getters.getToken,
     );
+
     this.cooks = res;
   },
   computed: {

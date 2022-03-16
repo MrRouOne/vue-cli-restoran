@@ -4,9 +4,18 @@
       @submit.prevent="fetchLogin;"
       class="d-flex flex-column align-items-center"
     >
-      <div style="margin-bottom: 30px" class="mb3 col-8">
-        <label class="form-label"><h1>Авторизация</h1></label>
+      <h1 class="mb-xl-5 col-8 text-center">Авторизация</h1>
+
+      <div>
+        <div
+          class="text-danger h4 text-left m-3"
+          v-for="(error, index) in this.errors"
+          :key="index"
+        >
+          {{ error }}
+        </div>
       </div>
+
       <div style="margin-bottom: 50px" class="mb3 col-8 d-flex flex-column">
         <label class="form_label text_left h5" for="login_enter">Логин</label>
         <input
@@ -37,7 +46,7 @@
         >
           Отправить
         </button>
-        <button class="btn btn-lg btn-danger">Отмена</button>
+        <a href="/" class="btn btn-lg btn-danger">Отмена</a>
       </div>
     </form>
   </article>
@@ -51,6 +60,7 @@ export default {
       login: "",
       password: "",
       errors: [],
+      res: "",
     };
   },
   methods: {
@@ -59,10 +69,15 @@ export default {
         login: this.login,
         password: this.password,
       };
-     
-      await this.$store.dispatch("fetchLogin", body);
-      this.login = "";
-      this.password = "";
+
+      this.res = await this.$store.dispatch("fetchLogin", body);
+      if (this.res.error) {
+        this.errors.push(this.res.error.message);
+      } else {
+        this.login = "";
+        this.password = "";
+        this.$router.push("/");
+      }
     },
   },
 };
