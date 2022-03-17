@@ -7,33 +7,32 @@
     >
       {{ error }}
     </div>
+       <h2 class="text-center m-4">Смены</h2>
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Имя</th>
-          <th scope="col">Статус</th>
-          <th scope="col">Должность</th>
+          <th scope="col">Начало</th>
+          <th scope="col">Конец</th>
+          <th scope="col">Активность</th>
           <th scope="col">
             <a
               style="margin-left: 30px"
               class="btn btn-primary btn-sm"
-              href="/add_user"
+              href="/add_work_shift"
               >+</a
             >
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in allUsers" :key="user.id">
-          <th scope="row">{{ user.id }}</th>
-          <td>{{ user.name }}</td>
-          <td>{{ user.status }}</td>
-          <td>{{ user.group }}</td>
+        <tr v-for="shift in allWorkShifts" :key="shift.id">
+          <th scope="row">{{ shift.id }}</th>
+          <td>{{ shift.start }}</td>
+          <td>{{ shift.end }}</td>
+          <td>{{ shift.active }}</td>
           <td scope="col">
-            <a class="btn btn-primary btn-sm" :href="'/detail_user/' + user.id"
-              >Подробнее</a
-            >
+             <router-link class="btn btn-primary btn-sm" :to="{ name: 'detail_work_shift', params: { id: shift.id } }">Подробнее</router-link>
           </td>
         </tr>
       </tbody>
@@ -43,7 +42,7 @@
 
 <script>
 export default {
-  name: "StafListComponent",
+  name: "WorkShiftsComponent",
   data() {
     return {
       errors: [],
@@ -51,23 +50,17 @@ export default {
     };
   },
   async mounted() {
-    this.res = await this.$store.dispatch("getStaff");
+    this.res = await this.$store.dispatch("allWorkShifts");
     if (this.res.error) {
       this.errors.push(this.res.error.message);
     }
   },
   computed: {
-    allUsers() {
-      return this.res.data;
+    allWorkShifts() {
+      return this.res;
     },
   },
   methods: {
-    async getStaff() {
-      this.res = await this.$store.dispatch("getStaff");
-      if (this.res.error) {
-        this.errors.push(this.res.error.message);
-      }
-    },
   },
 };
 </script>

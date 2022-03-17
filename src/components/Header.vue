@@ -34,8 +34,16 @@
             aria-labelledby="dropdownUser1"
             style=""
           >
-            <li><a class="dropdown-item" href="/staff_list">Сотрудники</a></li>
-            <li><a class="dropdown-item" href="#">Смены</a></li>
+            <li>
+              <router-link class="dropdown-item" :to="{ name: 'staff_list' }"
+                >Сотрудники</router-link
+              >
+            </li>
+            <li>
+              <router-link class="dropdown-item" :to="{ name: 'work_shifts' }"
+                >Смены</router-link
+              >
+            </li>
             <li>
               <a class="dropdown-item" href="/orders">Заказы</a>
             </li>
@@ -57,7 +65,7 @@ export default {
   name: "HeaderComponent",
   computed: {
     getToken() {
-      return localStorage.getItem("token")
+      return localStorage.getItem("token");
     },
   },
   methods: {

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import AddUser from "../components/AddUser";
+import AddUser from "../../../components/admin/Users/AddUser";
 export default {
   name: "AddUserComponent",
   components: {

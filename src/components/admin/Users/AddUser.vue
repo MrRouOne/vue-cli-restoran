@@ -57,10 +57,9 @@
         >
         <input
           class="form-control"
-          type="image"
+          type="file"
           name="image"
           id="image_enter"
-          v-model="password"
         />
       </div>
       <div class="mb3 col-8 d-flex flex-column">

@@ -94,9 +94,192 @@ export default new Vuex.Store({
         .then(response => response.json())
         .then(result => result)
         .then(error => error)
-        window.location.href = '/staff_list'
-      return res
+      if (!res.error) { window.location.href = '/staff_list' }
 
+      return res
+    },
+
+    async showUser(context, id) {
+      const res = await fetch(
+        `http://lifestealer86.ru/api-cafe/user/${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      return res
+    },
+
+    async dismissUser(context, id) {
+      const res = await fetch(
+        `http://lifestealer86.ru/api-cafe/user/${id}/to-dismiss`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      if (!res.error) { window.location.href = `/detail_user/${id}` }
+
+      return res
+    },
+    async allWorkShifts() {
+      const res = await fetch(
+        `http://lifestealer86.ru/api-cafe/work-shift`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      return res
+    },
+
+    async addWorkShift(context, personData) {
+      const res = await fetch(
+        "http://lifestealer86.ru/api-cafe/work-shift",
+        {
+          method: 'POST',
+          body: JSON.stringify(personData),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      if (!res.error) { window.location.href = '/work_shifts' }
+
+      return res
+    },
+
+    async showWorkShift(context, id) {
+      const res = await fetch(
+        `http://lifestealer86.ru/api-cafe/work-shift/${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      return res
+    },
+    
+    async showOrdersInWorkShift(context, id) {
+      const res = await fetch(
+        `http://lifestealer86.ru/api-cafe/work-shift/${id}/order`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      return res
+    },
+
+
+    async openWorkShift(context, id) {
+      const res = await fetch(
+        `http://lifestealer86.ru/api-cafe/work-shift/${id}/open`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      if (!res.error) { window.location.href = `/detail_work_shift/${id}` }
+      return res
+    },
+
+    async closeWorkShift(context, id) {
+      const res = await fetch(
+        `http://lifestealer86.ru/api-cafe/work-shift/${id}/close`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      if (!res.error) { window.location.href = `/detail_work_shift/${id}` }
+      return res
+    },
+
+    async addUserToWorkShift(context, personData) {
+      console.log(personData)
+      const res = await fetch(
+        `http://lifestealer86.ru/api-cafe/work-shift/${personData.id}/user`,
+        {
+          method: 'POST',
+          body: JSON.stringify(personData.body),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      if (!res.error) { window.location.href = `/detail_work_shift/${personData.id}` }
+
+      return res
+    },
+
+    async deleteUserToWorkShift(context, personData) {
+      const res = await fetch(
+        `http://lifestealer86.ru/api-cafe/work-shift/${personData.id}/user/${personData.user_id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      if (!res.error) { window.location.href = `/detail_work_shift/${personData.id}` }
+
+      return res
     },
 
     // async getOrders(context, id) {
