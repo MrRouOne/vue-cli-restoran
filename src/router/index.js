@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import StaffListView from '../views/StaffListView.vue'
+import AddUserView from '../views/AddUserView.vue'
 // import OrdersView from '../views/OrdersView.vue'
 
 Vue.use(VueRouter)
@@ -22,6 +23,11 @@ const routes = [
     path: '/staff_list',
     name: 'staff_list',
     component: StaffListView
+  },
+  {
+    path: '/add_user',
+    name: 'add_user',
+    component: AddUserView
   },
 
   // {

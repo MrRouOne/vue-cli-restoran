@@ -15,9 +15,11 @@ export default new Vuex.Store({
   mutations: {
     setToken(state, token) {
       state.token = token;
+      localStorage.setItem("token", token)
     },
     removeToken(state) {
       state.token = '';
+      localStorage.clear();
     },
   },
   actions: {
@@ -35,6 +37,7 @@ export default new Vuex.Store({
         .then(result => result)
         .then(error => error)
       if (res.data) { context.commit("setToken", res.data.user_token) }
+      window.location.href = '/'
       return res
 
     },
@@ -47,13 +50,14 @@ export default new Vuex.Store({
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            "Authorization": "Bearer " + this.state.token
+            "Authorization": "Bearer " + localStorage.getItem("token")
           }
         })
         .then(response => response.json())
         .then(result => result)
         .then(error => error)
-      if (res.data) { context.commit("removeToken") }
+      context.commit("removeToken")
+      window.location.href = '/'
       return res
     },
 
@@ -65,14 +69,34 @@ export default new Vuex.Store({
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            "Authorization": "Bearer " + this.state.token
+            "Authorization": "Bearer " + localStorage.getItem("token")
           }
         })
         .then(response => response.json())
         .then(result => result)
         .then(error => error)
-        
+
       return res
+    },
+
+    async addUser(context, personData) {
+      const res = await fetch(
+        "http://lifestealer86.ru/api-cafe/user",
+        {
+          method: 'POST',
+          body: JSON.stringify(personData),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+        window.location.href = '/staff_list'
+      return res
+
     },
 
     // async getOrders(context, id) {

@@ -76,7 +76,6 @@ export default {
       } else {
         this.login = "";
         this.password = "";
-        this.$router.push("/");
       }
     },
   },

@@ -11,7 +11,7 @@
     <article>
       <a href="/" class="text-decoration-none"><h1>Toitotoro</h1></a>
     </article>
-    <div v-if="getToken == ''">
+    <div v-if="getToken === null">
       <nav>
         <a href="/login" class="btn btn-primary btn-lg">Вход</a>
       </nav>
@@ -43,7 +43,7 @@
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <a @click="fetchLogout" class="dropdown-item" href="">Выход</a>
+              <button @click="fetchLogout" class="dropdown-item">Выход</button>
             </li>
           </ul>
         </div>
@@ -57,7 +57,7 @@ export default {
   name: "HeaderComponent",
   computed: {
     getToken() {
-      return this.$store.getters.getToken;
+      return localStorage.getItem("token")
     },
   },
   methods: {

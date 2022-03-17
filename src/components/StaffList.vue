@@ -7,10 +7,37 @@
     >
       {{ error }}
     </div>
-    <div v-for="user in this.allUsers" :key="user.id">
-      {{ allUsers.name }} - {{ allUsers.login }} - {{ allUsers.status }} -
-      {{ allUsers.group }}
-    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Имя</th>
+          <th scope="col">Статус</th>
+          <th scope="col">Должность</th>
+          <th scope="col">
+            <a
+              style="margin-left: 30px"
+              class="btn btn-primary btn-sm"
+              href="/add_user"
+              >+</a
+            >
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="user in allUsers" :key="user.id">
+          <th scope="row">{{ user.id }}</th>
+          <td>{{ user.name }}</td>
+          <td>{{ user.status }}</td>
+          <td>{{ user.group }}</td>
+          <td scope="col">
+            <a class="btn btn-primary btn-sm" :href="'/detail_user/' + user.id"
+              >Подробнее</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -20,8 +47,14 @@ export default {
   data() {
     return {
       errors: [],
-      res: '',
+      res: "",
     };
+  },
+  async mounted() {
+    this.res = await this.$store.dispatch("getStaff");
+    if (this.res.error) {
+      this.errors.push(this.res.error.message);
+    }
   },
   computed: {
     allUsers() {
