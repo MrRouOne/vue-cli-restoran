@@ -9,7 +9,7 @@ import WorkShifts from '../views/admin/WorkShifts/WorkShiftsView.vue'
 import AddWorkShift from '../views/admin/WorkShifts/AddWorkShiftView.vue'
 import DetailWorkShift from '../views/admin/WorkShifts/DetailWorkShiftView.vue'
 import AddUserToWorkShift from '../views/admin/WorkShifts/AddUserToWorkShiftView.vue'
-// import OrdersView from '../views/OrdersView.vue'
+import OrdersView from '../views/cook/OrdersView.vue'
 
 Vue.use(VueRouter)
 
@@ -59,11 +59,11 @@ const routes = [
     name: 'add_user_to_work_shift',
     component: AddUserToWorkShift
   },
-  // {
-  //   path: '/orders',
-  //   name: 'orders',
-  //   component: OrdersView
-  // },
+  {
+    path: '/orders',
+    name: 'orders',
+    component: OrdersView
+  },
 
 ]
 

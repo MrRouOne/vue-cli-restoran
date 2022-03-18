@@ -51,17 +51,6 @@
           v-model="password"
         />
       </div>
-      <div style="margin-bottom: 40px" class="mb3 col-8 d-flex flex-column">
-        <label required class="form_label text_left h5" for="image_enter"
-          >Фотография</label
-        >
-        <input
-          class="form-control"
-          type="file"
-          name="image"
-          id="image_enter"
-        />
-      </div>
       <div class="mb3 col-8 d-flex flex-column">
         <label class="form_label text_left h5" for="role_id">Роль</label>
 

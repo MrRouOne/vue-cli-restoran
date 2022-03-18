@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Orders from "../components/Orders";
+import Orders from "../../components/cook/Orders";
 export default {
   name: "OrdersComponent",
   components: {

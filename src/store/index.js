@@ -25,7 +25,7 @@ export default new Vuex.Store({
   actions: {
     async fetchLogin(context, personData) {
       const res = await fetch(
-        "http://lifestealer86.ru/api-cafe/login",
+        "http://localhost:80/api-cafe/login",
         {
           method: 'POST',
           body: JSON.stringify(personData),
@@ -36,15 +36,15 @@ export default new Vuex.Store({
         .then(response => response.json())
         .then(result => result)
         .then(error => error)
-      if (res.data) { context.commit("setToken", res.data.user_token) }
-      window.location.href = '/'
+      if (res.data) { context.commit("setToken", res.data.user_token);  window.location.href = '/'; }
+     
       return res
 
     },
 
     async fetchLogout(context) {
       const res = await fetch(
-        "http://lifestealer86.ru/api-cafe/logout",
+        "http://localhost:80/api-cafe/logout",
         {
           method: 'GET',
           headers: {
@@ -63,7 +63,7 @@ export default new Vuex.Store({
 
     async getStaff() {
       const res = await fetch(
-        "http://lifestealer86.ru/api-cafe/user",
+        "http://localhost:80/api-cafe/user",
         {
           method: 'GET',
           headers: {
@@ -81,7 +81,7 @@ export default new Vuex.Store({
 
     async addUser(context, personData) {
       const res = await fetch(
-        "http://lifestealer86.ru/api-cafe/user",
+        "http://localhost:80/api-cafe/user",
         {
           method: 'POST',
           body: JSON.stringify(personData),
@@ -101,7 +101,7 @@ export default new Vuex.Store({
 
     async showUser(context, id) {
       const res = await fetch(
-        `http://lifestealer86.ru/api-cafe/user/${id}`,
+        `http://localhost:80/api-cafe/user/${id}`,
         {
           method: 'GET',
           headers: {
@@ -118,7 +118,7 @@ export default new Vuex.Store({
 
     async dismissUser(context, id) {
       const res = await fetch(
-        `http://lifestealer86.ru/api-cafe/user/${id}/to-dismiss`,
+        `http://localhost:80/api-cafe/user/${id}/to-dismiss`,
         {
           method: 'GET',
           headers: {
@@ -136,7 +136,7 @@ export default new Vuex.Store({
     },
     async allWorkShifts() {
       const res = await fetch(
-        `http://lifestealer86.ru/api-cafe/work-shift`,
+        `http://localhost:80/api-cafe/work-shift`,
         {
           method: 'GET',
           headers: {
@@ -153,7 +153,7 @@ export default new Vuex.Store({
 
     async addWorkShift(context, personData) {
       const res = await fetch(
-        "http://lifestealer86.ru/api-cafe/work-shift",
+        "http://localhost:80/api-cafe/work-shift",
         {
           method: 'POST',
           body: JSON.stringify(personData),
@@ -173,7 +173,7 @@ export default new Vuex.Store({
 
     async showWorkShift(context, id) {
       const res = await fetch(
-        `http://lifestealer86.ru/api-cafe/work-shift/${id}`,
+        `http://localhost:80/api-cafe/work-shift/${id}`,
         {
           method: 'GET',
           headers: {
@@ -187,10 +187,10 @@ export default new Vuex.Store({
         .then(error => error)
       return res
     },
-    
+
     async showOrdersInWorkShift(context, id) {
       const res = await fetch(
-        `http://lifestealer86.ru/api-cafe/work-shift/${id}/order`,
+        `http://localhost:80/api-cafe/work-shift/${id}/order`,
         {
           method: 'GET',
           headers: {
@@ -208,7 +208,7 @@ export default new Vuex.Store({
 
     async openWorkShift(context, id) {
       const res = await fetch(
-        `http://lifestealer86.ru/api-cafe/work-shift/${id}/open`,
+        `http://localhost:80/api-cafe/work-shift/${id}/open`,
         {
           method: 'GET',
           headers: {
@@ -226,7 +226,7 @@ export default new Vuex.Store({
 
     async closeWorkShift(context, id) {
       const res = await fetch(
-        `http://lifestealer86.ru/api-cafe/work-shift/${id}/close`,
+        `http://localhost:80/api-cafe/work-shift/${id}/close`,
         {
           method: 'GET',
           headers: {
@@ -245,7 +245,7 @@ export default new Vuex.Store({
     async addUserToWorkShift(context, personData) {
       console.log(personData)
       const res = await fetch(
-        `http://lifestealer86.ru/api-cafe/work-shift/${personData.id}/user`,
+        `http://localhost:80/api-cafe/work-shift/${personData.id}/user`,
         {
           method: 'POST',
           body: JSON.stringify(personData.body),
@@ -265,7 +265,7 @@ export default new Vuex.Store({
 
     async deleteUserToWorkShift(context, personData) {
       const res = await fetch(
-        `http://lifestealer86.ru/api-cafe/work-shift/${personData.id}/user/${personData.user_id}`,
+        `http://localhost:80/api-cafe/work-shift/${personData.id}/user/${personData.user_id}`,
         {
           method: 'DELETE',
           headers: {
@@ -282,61 +282,108 @@ export default new Vuex.Store({
       return res
     },
 
-    // async getOrders(context, id) {
-    //   const res = await fetch(
-    //     `http://lifestealer86.ru/api-cafe/work-shift/${id}/order`,
-    //     {
-    //       method: 'GET',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Accept': 'application/json',
-    //         "Authorization": "Bearer " + this.state.token
-    //       }
-    //     })
-    //     .then(response => response.json())
-    //     .then(result => result)
-    //     .then(error => error)
+    async getOrders() {
+      const res = await fetch(
+        `http://localhost:80/api-cafe/order/taken/get`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
 
-    //   return res
-    // },
+      return res
+    },
 
-    // async getCooks(context, token) {
-    //   const res = await fetch(
-    //     "http://lifestealer86.ru/api-cafe/order/taken/get",
-    //     {
-    //       method: "GET",
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Accept': 'application/json',
-    //         "Authorization": "Bearer " + token
-    //       },
-    //     }
-    //   )
-    //     .then(response => response.json())
-    //     .then(result => result.data)
-    //   console.log(res);
-    //   return res;
-    // },
+    async changeStatus(context, personData) {
+      console.log(personData)
+      const res = await fetch(
+        `http://localhost:80/api-cafe/order/${personData.id}/change-status`,
+        {
+          method: "PATCH",
+          body: personData.body,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      if (!res.error) { window.location.href = `/orders` }
+      return res;
+    },
 
-    // async changeStatus(context, { id, status, token }) {
-    //   const patchStatus = JSON.stringify({ status })
-    //   const res = await fetch(
-    //     "http://lifestealer86.ru/" + `api-cafe/order/${id}/`,
-    //     {
-    //       method: "PATCH",
-    //       body: patchStatus,
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         "Authorization": "Bearer " + token
-    //       },
-    //     }
-    //   )
-    //     .then(response => response.json())
-    //     .then(result => result.data)
-    //     .catch(error => console.log(error))
+    async isAdmin() {
+      const res = await fetch(
+        `http://localhost:80/api-cafe/user`,
+        {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      return (!res.error) ? (true) : (false)
+    },
+    async isWaiter() {
+      const resAdmin = await fetch(
+        `http://localhost:80/api-cafe/user`,
+        {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+       const isAdmin = (!resAdmin.error) ? (true) : (false)
 
-    //   return res;
-    // },
+      const res = await fetch(
+        `http://localhost:80/api-cafe/work-shift/1/order`,
+        {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      return (!res.error && !isAdmin) ? (true) : (false)
+    },
+    async isCook() {
+      const res = await fetch(
+        `http://localhost:80/api-cafe/order/taken/get`,
+        {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then(response => response.json())
+        .then(result => result)
+        .then(error => error)
+      return (!res.error) ? (true) : (false)
+    },
+
 
   },
   modules: {
